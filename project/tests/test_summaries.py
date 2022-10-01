@@ -42,3 +42,15 @@ def test_read_summary_not_exists(test_app_with_db):
     assert response.status_code == 404
     response_dict = response.json()
     assert response_dict["detail"] == "Summary not found"
+
+
+def test_read_all_summaries(test_app_with_db):
+    response = test_app_with_db.post(
+        "/summaries/", data=json.dumps({"url": "https://foo.bar"}))
+    summary_id = response.json()['id']
+
+    response = test_app_with_db.get("/summaries/")
+    assert response.status_code == 200
+    response_list = response.json()
+    assert len(
+        list(filter(lambda s: s['id'] == summary_id, response_list))) == 1

@@ -1,5 +1,4 @@
 import os
-from venv import create
 import pytest
 from starlette.testclient import TestClient
 from tortoise.contrib.fastapi import register_tortoise

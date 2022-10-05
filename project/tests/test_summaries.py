@@ -1,5 +1,4 @@
 import json
-import pytest
 
 from fastapi import FastAPI
 
@@ -44,7 +43,7 @@ def test_read_summary(test_app_with_db: FastAPI):
 
 
 def test_read_summary_not_exists(test_app_with_db):
-    response = test_app_with_db.get(f"/summaries/999/")
+    response = test_app_with_db.get("/summaries/999/")
     assert response.status_code == 404
     response_dict = response.json()
     assert response_dict["detail"] == "Summary not found"
